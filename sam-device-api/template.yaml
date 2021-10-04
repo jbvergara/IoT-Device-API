@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-device-api
+
+  SAM Template for Shifted Energy Device API
+
+
+Globals:
+  Function:
+    Timeout: 10
+
+Resources:
+  LambdaManager:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: lambda_manager/
+      Handler: app.lambda_handler
+      Runtime: python3.6
+      Events:
+        DeviceAPI:
+          Type: Api 
+          Properties:
+            Path: /
+            Method: post
+            RestApiId: !Ref LambdaAPI
+            
+  LambdaAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: DEV
+        
+
+Outputs:
+  DeviceAPI:
+    Description: "API Gateway endpoint URL for lambda_manager function"
+    Value: !Sub "https://${LambdaAPI}.execute-api.${AWS::Region}.amazonaws.com/${LambdaAPI.Stage}"
+  LambaManager:
+    Description: "LambdaManager ARN"
+    Value: !GetAtt LambdaManager.Arn
+  LambdaManagerIamRole:
+    Description: "Implicit IAM Role created for LambdaManager function"
+    Value: !GetAtt LambdaManager.Arn
