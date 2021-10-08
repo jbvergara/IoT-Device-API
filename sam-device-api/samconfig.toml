@@ -2,9 +2,9 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "jem-sam-practice"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-m7m4c1215ldj"
-s3_prefix = "jem-sam-practice"
-region = "ap-southeast-1"
+stack_name = "intro-project-jemuel"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1u1mgwr58vss7"
+s3_prefix = "intro-project-jemuel"
+region = "us-west-2"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"

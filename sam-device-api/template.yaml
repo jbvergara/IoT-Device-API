@@ -16,7 +16,14 @@ Resources:
     Properties:
       CodeUri: lambda_manager/
       Handler: app.lambda_handler
-      Runtime: python3.6
+      Runtime: python3.7
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: test_devices_table
+        - S3WritePolicy:
+            BucketName: project-intro-bucket
+        - AWSSecretsManagerGetSecretValuePolicy:
+            SecretArn: arn:aws:secretsmanager:us-west-2:261943945236:secret:dev/token2-q4KEp9
       Events:
         DeviceAPI:
           Type: Api 
@@ -24,12 +31,17 @@ Resources:
             Path: /
             Method: post
             RestApiId: !Ref LambdaAPI
+      Environment:
+        Variables:
+          dynamodbName: test_devices_table
+          bucketName: project-intro-bucket
+          slackUrl: https://hooks.slack.com/services/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
             
   LambdaAPI:
     Type: AWS::Serverless::Api
     Properties:
       StageName: DEV
-        
+  
 
 Outputs:
   DeviceAPI:

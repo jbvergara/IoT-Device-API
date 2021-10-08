@@ -1,0 +1,101 @@
+swagger: "2.0"
+info:
+  description: "This documnetation discusses the API of Shifted Energy's devices"
+  version: "1.0.0"
+  title: "Shifted Energy Device API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "jemuel.bryan.vergara@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "f9p4tda8ch.execute-api.us-west-2.amazonaws.com"
+basePath: "/DEV"
+schemes:
+- "https"
+- "http"
+paths:
+  /:
+    post:
+      tags:
+      - "/"
+      summary: "Controls device configuration"
+      description: ""
+      operationId: "addConfig"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Device Conifg Payload"
+        required: true
+        schema:
+          $ref: "#/definitions/Body"
+      responses:
+        "200":
+          description: "Success"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "400":
+          description: "Bad Request"
+    
+definitions:
+  Body:
+    type: "object"
+    required:
+    - "type"
+    - "devID"
+    - "start"
+    - "interval"
+    - "maxWh"
+    properties:
+      type:
+        type: "string"
+        example: "Device Type"
+      devID:
+        type: "string"
+        example: "Device ID"
+      startAt:
+        type: "string"
+        example: "YY/MM/DD,HH:mm:ss-S"
+      interval:
+        type: "integer"
+        description: "Time interval of config"
+        enum:
+        - 123
+        - 456
+      maxWh:
+        type: "integer"
+        description: "Wh Value"
+        enum:
+        - 123
+        - 456
+    xml:
+      name: "Body"
+  ApiResponse:
+    type: "object"
+    properties:
+      type:
+        type: "string"
+        example: "Device Type"
+      devID:
+        type: "string"
+        example: "Device ID"
+      startAt:
+        type: "string"
+        example: "YY/MM/DD,HH:mm:ss-S"
+      interval:
+        type: "integer"
+        description: "Time interval of config"
+        enum:
+        - 123
+        - 456
+      maxWh:
+        type: "integer"
+        description: "Wh Value"
+        enum:
+        - 123
+        - 456
+      
